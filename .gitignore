@@ -4,5 +4,6 @@
 /.venv
 /.env
 /.quarto
+/template.pdf
 
 *.vdoc.*
