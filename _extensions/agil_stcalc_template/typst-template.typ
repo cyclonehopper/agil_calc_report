@@ -70,7 +70,6 @@
   rev_data: (),
   ink: black,
   heading-color: rgb("#40A9BB"),
-  company: "Agilitus Pty Ltd",
 ) = {
   let rows = if rev_data != none {
     for rev in rev_data {
@@ -103,9 +102,6 @@
     table.cell(fill: luma(240))[#text(weight: "semibold")[Reviewed]],
     table.cell(fill: luma(240))[#text(weight: "semibold")[Approved]],
     ..rows,
-    table.cell(colspan: 6, align: left)[
-      #disclaimer(company: company, ink: ink)
-    ],
   )
 }
 
@@ -347,9 +343,13 @@
     margin: (x: 20mm, top: 40mm, bottom: 26mm),
     numbering: none,
     header: running-header,
-    footer: none,
+    footer: running-footer,
     background: background-plain,
   )
+
+  // The contents page is page 1 (the cover is unnumbered); the body
+  // continues from there.
+  counter(page).update(1)
 
   text(font: heading-family, size: 16pt, weight: "bold", fill: heading-color)[#toc_title]
   v(2mm)
@@ -360,12 +360,19 @@
     outline(title: none, depth: toc_depth, indent: toc_indent)
   }
 
-  place(bottom, doc-control-table(
-    rev_data: rev_data,
-    ink: ink-color,
-    heading-color: heading-color,
-    company: if company != none { company } else { "Agilitus Pty Ltd" },
-  ))
+  // Document control table with the disclaimer as small print below it.
+  place(bottom, block[
+    #doc-control-table(
+      rev_data: rev_data,
+      ink: ink-color,
+      heading-color: heading-color,
+    )
+    #v(4mm)
+    #disclaimer(
+      company: if company != none { company } else { "Agilitus Pty Ltd" },
+      ink: ink-color,
+    )
+  ])
 
   pagebreak()
 
@@ -380,9 +387,6 @@
     footer: running-footer,
     background: background-body,
   )
-
-  // Number the body from 1 (the cover and contents pages are unnumbered).
-  counter(page).update(1)
 
   doc
 }
