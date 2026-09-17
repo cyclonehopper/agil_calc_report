@@ -54,59 +54,121 @@ using MyUnits, WindLoadModule, MyHelper
 
 # Introduction
 
-## Objective / Scope
+## Calculation Objective (Scope)
 
-CV2A will be relocated to grid 18-19. This document presents the calculation required to demonstrate the soundness of the existing CV2A structure and the existing roof structure supporting CV2A during operation.
+*Outline the scope this calculation covers as per the example below.*
 
-This calculation is supporting documentation for the following sketches/drawings
+This calculation covers the design of the structural steel and foundation for the building.
 
-- 26016-ST-SKT-0002 - 26016-ST-SKT-0002_A C2A Relocation and Details
+The structural steel consists of three individual sub-structures isolated to control vibrations. These buildings are all braced framed systems and columns are considered pinned base.
+
+Foundations are either combined or individual spread reinforced concrete footings.
+
+In addition to the main structural framing, this calculation verifies the structural adequacy of:
+
+- Footings including holding down bolts,
+- Mechanical frames and equipment plinths,
+- Associated chute-work and chute supports.
 
 ## Assumptions
-* Strengthening of the rafters in shed 1 are installed for load combinations involving ultimate wind load.
-* Tapered flange channel 703x76 is taken from BS 4-1:1993 and is modelled as parallel flange channel (TFC is not an option in Space Gass). The flange thickness is taken as 11.2mm. The increase in thickness near the root is ignored.
-* services load taken as 100kg/m per conveyor.
 
+*List any relevant assumptions such as mechanical settlement criteria, density of backfill on retaining walls. Assumptions should be minimised and always support by approval from project. Where appropriate, assumptions should be recorded in the project risk register.*
 
 ## Exclusions
-* n/a
 
-## Basis of Design
+*Outline the exclusions this calculation does not cover as per example below.*
 
-In general, design shall be in accordance with AS 4100 and other relevant standards.
+This calculation excludes the following:
 
-## Design Standards and Codes
+- Design of the process / mechanical function for items where structural design has been completed, e.g., chutes and hoppers. Refer to mechanical engineer documentation for details,
+- Structural design of vendor supplied equipment including XRT machine and screens.
 
-Unless specifically noted, the design complies with Australian Standards and selected international standards as listed in the Design Criteria. The following summarises the key standards used in producing this calculation:
+## Design Criteria
 
-* AS 1170.0 - 2002		Structural design actions - Part 0: General principles
-* AS 1170.1 - 2002		Structural design actions - Part 1: Permanent, imposed and other actions
-* AS 1170.2 - 2002		Structural design actions - Part 2: Wind actions
-* AS 1170.4 - 2002		Structural design actions - Part 4: Earthquake actions
-* AS 4100 - 1998		Steel structures
+Unless specifically noted, this calculations in accordance with the requirements of Client design criteria xxxx and associated documents list in this criteria document.
 
-## Other Referenced Documents
+This calculation has been completed in accordance with project procedures xxxx. The Basis of Design for this calculation is described in xxxx with mechanical load data in accordance with the Process Design Criteria xxxx. (Include any variations to design criteria including materials and these are to be approved by the Technical Director prior to undertaking calculations).
 
-Other information used in this design mainly for loads calculations, include:
+## Design Standards, Client Specification and Codes
 
-* 21206-ME-CAL-002 - Conveyor C1 Tripper Arrangement Weight
-* 22131-ST-CAL-0001 Dust collector frame calculation
-* 22131-ST-CAL-0002 Shed 1 assessment
-* 26016-ST-CAL-0001 CV2A Relocation Disassembly Structural Design
+Unless specifically noted, the design complies with Australian Standards and selected international standards as listed in the Design Criteria. The following summarises the key standards used in producing this calculation: (Limit to main standards not exhaustive list – this can be done in the design criteria).
 
+- AS 1170.0 – 2002 Structural design actions – Part 0: General principles,
+- AS 1170.1 – 2002 Structural design actions – Part 1: Permanent, imposed and other actions,
+- AS 1170.2 – 2011 Structural design actions – Part 2: Wind actions,
+- AS 1170.4 – 2007 Structural design actions – Part 4: Earthquake actions in Australia,
+- AS 1418.1 – 2002 Cranes, hoists and winches – Part 1: General requirements,
+- AS 3600 – 2018 Concrete structures,
+- AS 4100 – 1998 Steel structures.
 
-## Methodology
+## Other Reference Documents
 
-C2A hanger/support locations are kept similar to its previous location, except for support beam at grid B, where its moved 300mm east to miss an internal column. This is done so to minimize changes to the existing steel.
+*List other relevant documents – their number and their revision where necessary as per example below:*
 
-Space Gass 14.00 was used to model the structure, with the following considerations:
+Other reference documents used in this design include:
 
-1. C2A installed and operating, together with C1, in its final position. C2 is not operating, just parked as close as possible to grid 18, where a stopper is located 2.3m from grid 18. The model is analysed for load combinations listed in @sec-load_combinations. Flooded belt is considered for this scenario, where C1 and C2A are fully loaded.
+- Geotechnical Interpretive Report,
+- Certified Vendor Drawings,
+- Mechanical Drawings.
 
-2. C1 tripper relocating southward where the head end wheels on grid 18. At that point, the tripper can not operate because the chute position is blocked by CV2A. The model is analysed only for load combination 1.35G.
-3. Where C2 is operating, it is deemed not critical due to is relative position from grid 18, hence no further analysis was performed.
-4. Grid 19 is not critical, as it is similar to grid 25 and 26, supporting C2A prior to its relocation.
+## Methodology and Structural Load Path
 
+*Outline briefly the structural form being used, a summary of load types, load combinations and what their basis is. Include a brief description of key load paths as per the example below.*
+
+*This section should be no more than half a page.*
+
+The structural system consists of steel braced frames. All floors and columns grids are braced to control vibration.
+
+Structural linear analysis was performed on the structural models in Space Gass to confirm member capacities and connection loads.
+
+Load combinations for both strength and serviceability requirements were based on the worst combinations of dead, live, equipment, wind loads, and earthquake. (As applicable)
+
+The connection checks were completed using Idea Statica.
+
+The dynamic analysis of the secondary screen support under the XRT building and the primary screening building were done using Strand7 program complying with the basis of design.
+
+The main loads this structure carries are as follows:
+
+- Gravity loads from XRT machine and screens,
+- Platform live loads,
+- Gravity and vibration load from screen feeders and crushers,
+- Conveyor loads including belt tensions,
+- Horizontal wind loads,
+- Earthquake loads.
+
+In terms of horizontal loads, the wind loads control the design of the structure.
+
+## File Location and Software Use
+
+*List file path for final version of electronic files and list software utilised.*
+
+### File Location
+
+### Software utilised
+
+- Space Gass V xxxx
+- RAMConnect V xxxx
+- Idea Statica V xxxx
+
+## Other
+
+*Include any other relevant considerations that have formed part of the design and documentation process.*
+
+{{< pagebreak >}}
+
+# Drawing List
+
+This calculation covers the structural components for the drawings listed in Table 2.1.
+
+|Drawing Number|Title|Revision No.|
+|---------|:----------|----------|
+| | | |
+| | | |
+| | | |
+| | | |
+: Drawing list {#tbl-refdwgs tbl-colwidths="[25,65,10]"}
+
+Note – Revision quoted is current at time of completion of calculation. This calculation does not cover structural adequacy subsequent revisions.
 
 {{< pagebreak >}}
 
@@ -115,21 +177,6 @@ Space Gass 14.00 was used to model the structure, with the following considerati
 ## Structural dead load (GDstruct)
 
 Roof dead load, reproduced from 22131-ST-CAL-0001
-
-{{< pagebreak >}}
-
-# Drawings
-This calculation covers the structural components on the drawings and/or sketches listed in the following table:
-
-<!-- add column as below to left justify -->
-
-|Drawing Number|Drawing Title| Revision |
-|---------|:----------|----------|
-|0001|General Arrangement|A|
-|0002|Details 1|0|
-|0003|Details 2|C1|
-|0004|Earthworks|x|
-: {tbl-refdwgs tbl-colwidths="[20,70,10]"}
 
 {{< pagebreak >}}
 
