@@ -1,0 +1,44 @@
+# Agilitus brand definition (brand.yml)
+# Single source of truth for colours, typography and logos used by the
+# Quarto/Typst structural calculation template.
+# See https://quarto.org/docs/authoring/brand.html
+
+meta:
+  name: Agilitus
+
+color:
+  palette:
+    # Core Agilitus gradient colours (blue -> green)
+    agilitus-blue: "#0066B2"
+    agilitus-mid: "#4B929B"
+    agilitus-green: "#91C970"
+    # Document heading / accent colours taken from the AGIL-ST-CAL template
+    agilitus-teal: "#40A9BB"
+    agilitus-link: "#0063FF"
+    agilitus-ink: "#231F20"
+  primary: agilitus-teal
+  secondary: agilitus-blue
+  foreground: agilitus-ink
+  background: "#FFFFFF"
+
+typography:
+  fonts:
+    - family: Arial
+      source: system
+    - family: Verdana
+      source: system
+  base:
+    family: Arial
+    size: 11pt
+  headings:
+    family: Verdana
+    color: agilitus-teal
+    weight: 600
+  monospace:
+    family: JetBrains Mono
+
+logo:
+  images:
+    agilitus: images/logo-agilitus.png
+    watermark: images/brand/agilitus-watermark.svg
+    tagline: images/brand/shaping-tomorrow-together.png

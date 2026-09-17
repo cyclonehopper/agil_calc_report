@@ -1,17 +1,11 @@
+// typst-show.typ
+//
+// Calls the `article` function defined in `typst-template.typ`, forwarding the
+// document metadata and the project brand (colour palette + typography).
+//
+// `brand-color` and `brand-logo-images` are injected by Quarto immediately
+// before this file, so they can be read at runtime here.
 
-// Typst custom formats typically consist of a 'typst-template.typ' (which is
-// the source code for a typst template) and a 'typst-show.typ' which calls the
-// template's function (forwarding Pandoc metadata values as required)
-//
-// This is an example 'typst-show.typ' file (based on the default template  
-// that ships with Quarto). It calls the typst function named 'article' which 
-// is defined in the 'typst-template.typ' file. 
-//
-// If you are creating or packaging a custom typst template you will likely
-// want to replace this file and 'typst-template.typ' entirely. You can find
-// documentation on creating typst templates here and some examples here:
-//   - https://typst.app/docs/tutorial/making-a-template/
-//   - https://github.com/typst/templates
 #show: doc => article(
 $if(calc_title)$
   title: [$calc_title$],
@@ -54,10 +48,14 @@ $endif$
 
 $if(logo_company)$
   logo_company: "$logo_company$",
-  $endif$
+$else$
+  logo_company: brand-logo-images.at("agilitus", default: (:)).at("path", default: none),
+$endif$
 $if(logo_client)$
   logo_client: "$logo_client$",
-  $endif$
+$endif$
+  watermark: brand-logo-images.at("watermark", default: (:)).at("path", default: none),
+  tagline: brand-logo-images.at("tagline", default: (:)).at("path", default: none),
 
 $if(revisions)$
   rev_data: (
@@ -73,6 +71,21 @@ $if(revisions)$
   $endfor$
   ),
 $endif$
+
+$if(brand.typography.base.family)$
+  font: $brand.typography.base.family$,
+$endif$
+$if(brand.typography.headings.family)$
+  heading-family: $brand.typography.headings.family$,
+$endif$
+$if(brand.typography.headings.color)$
+  heading-color: $brand.typography.headings.color$,
+$endif$
+  ink-color: brand-color.at("foreground", default: rgb("#231F20")),
+  secondary-color: brand-color.at("secondary", default: rgb("#0066B2")),
+  mid-color: brand-color.at("agilitus-mid", default: rgb("#4B929B")),
+  accent-color: brand-color.at("agilitus-green", default: rgb("#91C970")),
+  link-color: brand-color.at("agilitus-link", default: rgb("#0063FF")),
 
 $if(lang)$
   lang: "$lang$",
@@ -91,7 +104,7 @@ $if(papersize)$
 $endif$
 $if(mainfont)$
   font: ("$mainfont$",),
-$endif$ 
+$endif$
 $if(fontsize)$
   fontsize: $fontsize$,
 $endif$
@@ -108,6 +121,12 @@ $elseif(brand.typography.monospace.family)$
 $endif$
 $if(toc)$
   toc: $toc$,
+$endif$
+$if(toc-title)$
+  toc_title: [$toc-title$],
+$endif$
+$if(toc-depth)$
+  toc_depth: $toc-depth$,
 $endif$
   cols: $if(columns)$$columns$$else$1$endif$,
   doc,

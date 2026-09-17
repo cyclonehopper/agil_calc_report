@@ -9,6 +9,9 @@ execute:
   cache: true
 format:
   agil_stcalc_template-typst: default
+toc: true
+toc-title: Contents
+toc-depth: 3
 company: Agilitus
 client: Glencore
 proj_no: 26016
@@ -26,48 +29,6 @@ revisions:
   rev_check: F. Hakim
   rev_app:
 ---
-
-```{=typst}
-#like_header("Calculation Objective / Scope")
-```
-* Relocation of existing C2A conveyor to grid 18-19
-* Assessment of existing support structure
-
-
-```{=typst}
-#like_header("Calculation Assumptions")
-```
-* Conveyor walkway live load is taken as 1.25kPa for global support design
-* Handrail is 0.15kN/m per handrail
-* Maximum operating wind load is taken as 25m/s
-* Knee braces at shed 1 rafter on grid 18-19 shall be strengthened per drg 595-4-6267
-* Truck bay strenthening shall be completed prior to arrival of storm season.
-
-
-```{=typst}
-#like_header("Software Used")
-```
-* Space Gass 14.00 for structural analysis
-* IdeaStatica 25.1 for connections
-
-```{=typst}
-#like_header("Holds")
-```
-* n/a
-
-{{< pagebreak >}}
-
-```{=typst}
-#block(above: 2em, below: 2em)[
-    #outline(
-      title: [Table of Contents],
-      depth: 3,
-      indent: auto
-    );
-    ]
-```
-
-{{< pagebreak >}}
 
 ```{julia}
 #| label: Usings
@@ -169,7 +130,9 @@ This calculation covers the structural components on the drawings and/or sketche
 # Methodology, Loading and Load Combinations
 Do some calculation here.
 
-<!-- some double column figures -->
+<!-- some double column figures.
+     Uncomment and point at your project's images to include them.
+
 ::: {#fig-builtup_loads layout-ncol=2}
 
 ![Central to armour plate](images/rfem_model/builtup/load-central.png){#fig-load_central_builtup height="250"}
@@ -178,8 +141,10 @@ Do some calculation here.
 
 Impact loading scenarios
 :::
+-->
 
-<!-- attaching pdf files, A4, portrait -->
+<!-- attaching pdf files, A4, portrait.
+     Uncomment and point at your project's PDF to include it inline.
 
 ```{=typst}
 #let pdf-file = "appendices/baseplate_anchor_design.pdf"
@@ -190,8 +155,12 @@ Impact loading scenarios
   #image(pdf-file, page: i, width: 95%)
 ]
 ```
+-->
 
 # Sketches
+
+<!-- Sketches are appended as A3 landscape PDFs. Uncomment and point at your
+     project's files to include them.
 
 ```{=typst}
 #set page(paper: "a3", flipped: true, header: none)
@@ -217,3 +186,4 @@ Impact loading scenarios
   #image(pdf-file, page: i, width: 98%)
   #image(pdf-file2, page: i, width: 98%)]
 ```
+-->
