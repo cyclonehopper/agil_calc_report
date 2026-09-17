@@ -67,14 +67,13 @@
 
 // Document control / revision table shown on the contents page.
 // Matches the Word template: no shading, no internal vertical rules (only an
-// outer border and horizontal separators), text top-aligned. Each revision
-// row is given a minimum height and an empty signature row is left below them
-// so a digital signature can be applied.
+// outer border and horizontal separators), text top-aligned. One row is drawn
+// per revision in the YAML; each row is tall enough to take a digital
+// signature.
 #let doc-control-table(
   rev_data: (),
   ink: black,
-  row-height: 12mm,
-  signature-height: 14mm,
+  row-height: 16mm,
 ) = {
   let border = 0.4pt + ink
   let rows = ()
@@ -101,9 +100,6 @@
     table.hline(stroke: border),
     [Revision], [Issue Reason], [Date], [Prepared], [Reviewed], [Approved],
     ..rows,
-    table.hline(stroke: border),
-    // Empty row reserved for a digital signature.
-    table.cell(colspan: 6)[#block(height: signature-height)],
     table.hline(stroke: border),
     table.vline(x: 0, stroke: border),
     table.vline(x: 6, stroke: border),
