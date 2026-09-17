@@ -66,40 +66,47 @@
 }
 
 // Document control / revision table shown on the contents page.
-// Unshaded and top-aligned, matching the Word template. Each revision row is
-// given a minimum height, and an empty signature row is left below them so a
-// digital signature can be applied.
+// Matches the Word template: no shading, no internal vertical rules (only an
+// outer border and horizontal separators), text top-aligned. Each revision
+// row is given a minimum height and an empty signature row is left below them
+// so a digital signature can be applied.
 #let doc-control-table(
   rev_data: (),
   ink: black,
   row-height: 12mm,
-  signature-height: 16mm,
+  signature-height: 14mm,
 ) = {
-  let rows = if rev_data != none {
+  let border = 0.4pt + ink
+  let rows = ()
+  if rev_data != none {
     for rev in rev_data {
-      (
-        block(height: row-height)[#rev.rev_no],
-        rev.rev_desc,
-        resolve_date(rev.rev_date),
-        rev.rev_prep,
-        rev.rev_check,
-        rev.rev_app,
-      )
+      rows.push(table.hline(stroke: border))
+      rows.push(block(height: row-height)[#rev.rev_no])
+      rows.push(rev.rev_desc)
+      rows.push(resolve_date(rev.rev_date))
+      rows.push(rev.rev_prep)
+      rows.push(rev.rev_check)
+      rows.push(rev.rev_app)
     }
-  } else {
-    ()
   }
   set text(size: 9pt)
   table(
-    columns: (auto, 1fr, auto, auto, auto, auto),
-    stroke: (paint: ink, thickness: 0.4pt),
+    // Column proportions follow the Word grid (907:2311:1378:1488:1488:1637).
+    columns: (1fr, 2.55fr, 1.52fr, 1.64fr, 1.64fr, 1.8fr),
+    stroke: none,
     inset: 5pt,
     align: left + top,
+    table.hline(stroke: border),
     table.cell(colspan: 6)[#text(weight: "bold")[Document Control]],
+    table.hline(stroke: border),
     [Revision], [Issue Reason], [Date], [Prepared], [Reviewed], [Approved],
     ..rows,
+    table.hline(stroke: border),
     // Empty row reserved for a digital signature.
     table.cell(colspan: 6)[#block(height: signature-height)],
+    table.hline(stroke: border),
+    table.vline(x: 0, stroke: border),
+    table.vline(x: 6, stroke: border),
   )
 }
 
