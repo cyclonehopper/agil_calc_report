@@ -73,7 +73,7 @@
 #let doc-control-table(
   rev_data: (),
   ink: black,
-  row-height: 16mm,
+  row-height: 9.6mm,
 ) = {
   let border = 0.4pt + ink
   let rows = ()
