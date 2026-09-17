@@ -38,6 +38,15 @@
   }
 }
 
+// Cover-page date, formatted as in the Word template ("Month, Year").
+#let resolve_month_year(d) = {
+  if d == [today] {
+    datetime.today().display("[month repr:long], [year]")
+  } else {
+    d
+  }
+}
+
 // Horizontal Agilitus gradient (blue -> teal -> green).
 #let brand-gradient(blue, mid, green) = gradient.linear(
   (blue, 0%),
@@ -47,7 +56,7 @@
 )
 
 #let disclaimer(company: "Agilitus Pty Ltd", ink: black) = {
-  text(size: 0.95em, fill: ink)[
+  text(size: 7pt, fill: ink)[
     A person using #company documents or data accepts the risks of:
     (a) using the documents or data in electronic form without requesting and
     checking them for accuracy against the original hard copy version; and
@@ -77,7 +86,7 @@
   } else {
     ()
   }
-  set text(size: 8pt)
+  set text(size: 9pt)
   table(
     columns: (auto, 1fr, auto, auto, auto, auto),
     stroke: (paint: ink, thickness: 0.4pt),
@@ -158,12 +167,53 @@
   show link: set text(fill: link-color)
   show ref: set text(fill: link-color)
 
+  // Heading typography matched to the AGIL-ST-CAL template:
+  //   H1 16pt Verdana Pro, teal, bold
+  //   H2 12pt Arial, black, bold
+  //   H3 10pt Arial, black, bold
+  //   H4 10pt Arial, black
   set heading(numbering: sectionnumbering)
-  show heading: set text(font: heading-family, fill: heading-color, weight: "semibold")
   show heading: set block(above: 1.6em, below: 0.9em)
+  show heading.where(level: 1): set text(
+    font: heading-family,
+    size: 16pt,
+    weight: "bold",
+    fill: heading-color,
+  )
+  show heading.where(level: 2): set text(
+    font: font,
+    size: 12pt,
+    weight: "bold",
+    fill: ink-color,
+  )
+  show heading.where(level: 3): set text(
+    font: font,
+    size: 10pt,
+    weight: "bold",
+    fill: ink-color,
+  )
+  show heading.where(level: 4): set text(
+    font: font,
+    size: 10pt,
+    weight: "regular",
+    fill: ink-color,
+  )
 
-  // Level-1 entries in the contents list echo the document branding.
-  show outline.entry.where(level: 1): set text(fill: heading-color, weight: "semibold")
+  // Contents-list entries (mirrors the docx toc 1 / toc 2 styles).
+  show outline.entry.where(level: 1): set text(
+    size: 12pt,
+    fill: heading-color,
+    weight: "bold",
+  )
+  show outline.entry.where(level: 2): set text(
+    size: 10pt,
+    fill: ink-color,
+    weight: "bold",
+  )
+  show outline.entry.where(level: 3): set text(
+    size: 10pt,
+    fill: ink-color,
+  )
 
   // Section-based figure numbering (e.g. Figure 2.1)
   set figure(numbering: n => {
@@ -174,7 +224,7 @@
       numbering("1", n)
     }
   })
-  show figure.caption: set text(size: 0.85em, weight: "semibold")
+  show figure.caption: set text(size: 8.5pt, weight: "semibold")
 
   // Keep Quarto's figure counters reset at each level-1 heading.
   show heading.where(level: 1): it => {
@@ -231,44 +281,56 @@
   if cover {
     set page(
       paper: paper,
-      margin: (x: 20mm, top: 42mm, bottom: 30mm),
+      margin: (x: 20mm, top: 45mm, bottom: 30mm),
       numbering: none,
       header: running-header,
       footer: none,
       background: background-plain,
     )
 
-    v(12mm)
-    text(size: 25pt, weight: "bold", fill: ink-color)[
+    // Cover text block. Spacing and position mirror the Word template
+    // (AGIL-ST-CAL-0003):
+    //   after project title ....... 80 twips  ( 4 pt)
+    //   after document title ...... 120 twips ( 6 pt)
+    //   before "Prepared for" ..... 720 twips (36 pt, from the Subtitle style)
+    //   after "Prepared for" ...... 360 twips (18 pt)
+    //   date / document no / project no ... consecutive 8 pt lines
+    text(font: heading-family, size: 28pt, weight: "bold", fill: ink-color)[
       #if proj_title != none [#proj_title] else [Project Title]
     ]
-    v(5mm)
-    text(size: 15pt, fill: heading-color)[
+    v(4pt)
+    text(font: heading-family, size: 16pt, weight: "bold", fill: heading-color)[
       #if title != none [#title] else [Document Title]
     ]
-    v(20mm)
-    text(size: 11pt)[
+    v(42pt)
+    text(size: 12pt, weight: "bold")[
       Prepared for #text(fill: link-color)[
         #if client != none [#client] else [Client Name]
       ]
     ]
-    v(3mm)
-    text(size: 9pt, fill: ink-color)[
-      #if rev_data != none and rev_data.len() > 0 [Rev #rev_data.last().rev_no] else [Rev A]
-      #if rev_data != none and rev_data.len() > 0 [ · #resolve_date(rev_data.last().rev_date)]
-    ]
-    v(16mm)
-    text(size: 9pt)[
-      Document Number #if calc_no != none [#calc_no] else [—] \
-      Project Number #if proj_no != none [#proj_no] else [—] \
-      #if proj_phase != none [Project Phase #proj_phase] \
-      #if company != none [Prepared by #company]
+    v(18pt)
+    block[
+      #set par(leading: 0.2em)
+      #text(size: 8pt, fill: ink-color)[
+        #if rev_data != none and rev_data.len() > 0 [
+          #resolve_month_year(rev_data.last().rev_date)
+        ] else [
+          #datetime.today().display("[month repr:long], [year]")
+        ]
+      ] \
+      #text(size: 8pt, fill: ink-color)[
+        #if calc_no != none [#calc_no]
+      ] \
+      #text(size: 8pt, fill: ink-color)[
+        Project Number #if proj_no != none [#proj_no] else [XXXX]
+      ]
     ]
 
     if tagline != none {
-      place(bottom + center, box(inset: (bottom: 16mm))[
-        #image(tagline, width: 48mm)
-      ])
+      // Brand tagline, lower-left just above the gradient strip.
+      place(bottom + left, dy: 14mm)[
+        #image(tagline, width: 33mm)
+      ]
     }
 
     pagebreak()
@@ -286,7 +348,7 @@
     background: background-plain,
   )
 
-  text(size: 20pt, weight: "semibold", fill: ink-color)[#toc_title]
+  text(font: heading-family, size: 16pt, weight: "bold", fill: heading-color)[#toc_title]
   v(2mm)
   line(length: 100%, stroke: 1.2pt + heading-color)
   v(6mm)
