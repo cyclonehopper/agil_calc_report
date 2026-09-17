@@ -66,15 +66,19 @@
 }
 
 // Document control / revision table shown on the contents page.
+// Unshaded and top-aligned, matching the Word template. Each revision row is
+// given a minimum height, and an empty signature row is left below them so a
+// digital signature can be applied.
 #let doc-control-table(
   rev_data: (),
   ink: black,
-  heading-color: rgb("#40A9BB"),
+  row-height: 12mm,
+  signature-height: 16mm,
 ) = {
   let rows = if rev_data != none {
     for rev in rev_data {
       (
-        rev.rev_no,
+        block(height: row-height)[#rev.rev_no],
         rev.rev_desc,
         resolve_date(rev.rev_date),
         rev.rev_prep,
@@ -89,19 +93,13 @@
   table(
     columns: (auto, 1fr, auto, auto, auto, auto),
     stroke: (paint: ink, thickness: 0.4pt),
-    inset: 4pt,
-    table.cell(
-      colspan: 6,
-      fill: luma(240),
-      align: left,
-    )[#text(weight: "semibold", fill: heading-color)[Document Control]],
-    table.cell(fill: luma(240))[#text(weight: "semibold")[Revision]],
-    table.cell(fill: luma(240))[#text(weight: "semibold")[Issue Reason]],
-    table.cell(fill: luma(240))[#text(weight: "semibold")[Date]],
-    table.cell(fill: luma(240))[#text(weight: "semibold")[Prepared]],
-    table.cell(fill: luma(240))[#text(weight: "semibold")[Reviewed]],
-    table.cell(fill: luma(240))[#text(weight: "semibold")[Approved]],
+    inset: 5pt,
+    align: left + top,
+    table.cell(colspan: 6)[#text(weight: "bold")[Document Control]],
+    [Revision], [Issue Reason], [Date], [Prepared], [Reviewed], [Approved],
     ..rows,
+    // Empty row reserved for a digital signature.
+    table.cell(colspan: 6)[#block(height: signature-height)],
   )
 }
 
@@ -365,7 +363,6 @@
     #doc-control-table(
       rev_data: rev_data,
       ink: ink-color,
-      heading-color: heading-color,
     )
     #v(4mm)
     #disclaimer(
