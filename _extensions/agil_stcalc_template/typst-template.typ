@@ -238,16 +238,10 @@
       background: background-plain,
     )
 
-    v(4mm)
-    text(size: 9pt, weight: "semibold", tracking: 1.5pt, fill: heading-color)[
-      STRUCTURAL CALCULATION
-    ]
-    v(8mm)
+    v(12mm)
     text(size: 25pt, weight: "bold", fill: ink-color)[
       #if proj_title != none [#proj_title] else [Project Title]
     ]
-    v(5mm)
-    line(length: 100%, stroke: 1pt + heading-color)
     v(5mm)
     text(size: 15pt, fill: heading-color)[
       #if title != none [#title] else [Document Title]
