@@ -56,6 +56,16 @@ $if(logo_client)$
 $endif$
   watermark: brand-logo-images.at("watermark", default: (:)).at("path", default: none),
   tagline: brand-logo-images.at("tagline", default: (:)).at("path", default: none),
+$if(cover-image)$
+  cover_image: ("$cover-image$").replace("\\_", "_"),
+$elseif(cover_image)$
+  cover_image: ("$cover_image$").replace("\\_", "_"),
+$else$
+  cover_image: brand-logo-images.at("cover", default: (:)).at("path", default: none),
+$endif$
+$if(cover-placeholder)$
+  cover_placeholder: $cover-placeholder$,
+$endif$
 
 $if(revisions)$
   rev_data: (

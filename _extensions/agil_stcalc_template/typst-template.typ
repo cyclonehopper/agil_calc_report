@@ -55,6 +55,41 @@
   angle: 0deg,
 )
 
+// Size and placement of the cover photo shape on the page.
+// The docx shape is 151.9 x 164.5 mm, reduced to 80% here; it is aligned to
+// the bottom of the page with the same gap as the Word template.
+#let cover-photo-width = 126.5mm
+#let cover-photo-height = 136.6mm
+#let cover-photo-bottom = 11mm
+
+// Cover photo "tongue" shape, reproduced from the Word template
+// (AGIL-ST-CAL-0003). The control points below are taken verbatim from the
+// original DrawingML custom-geometry path, so the shape matches the docx.
+// It is filled with either the cover image or a grey placeholder.
+#let cover-photo-shape(fill: none) = {
+  let w = cover-photo-width
+  let h = cover-photo-height
+  let pw = 5468397
+  let ph = 5923502
+  let cv(x, y) = (x / pw * w, y / ph * h)
+  curve(
+    fill: fill,
+    curve.move(cv(5468398, 2961704)),
+    curve.cubic(cv(5468398, 3256883), cv(5353431, 3534347), cv(5144739, 3743135)),
+    curve.line(cv(3135630, 5752148)),
+    curve.cubic(cv(3099054, 5788724), cv(3060383, 5822347), cv(3019806, 5853017)),
+    curve.cubic(cv(2986183, 5878735), cv(2950940, 5902261), cv(2914936, 5923503)),
+    curve.line(cv(0, 5923503)),
+    curve.line(cv(0, 0)),
+    curve.line(cv(2914841, 0)),
+    curve.cubic(cv(2950940, 21241), cv(2986183, 44768), cv(3019806, 70485)),
+    curve.cubic(cv(3060383, 101156), cv(3099054, 134779), cv(3135630, 171355)),
+    curve.line(cv(5144739, 2180463)),
+    curve.cubic(cv(5353431, 2389346), cv(5468398, 2666810), cv(5468398, 2961704)),
+    curve.close(),
+  )
+}
+
 #let disclaimer(company: "Agilitus Pty Ltd", ink: black) = {
   text(size: 7pt, fill: ink)[
     A person using #company documents or data accepts the risks of:
@@ -133,6 +168,8 @@
   logo_client: none,
   tagline: none,
   watermark: none,
+  cover_image: none,
+  cover_placeholder: false,
   rev_data: none,
   cols: 1,
   margin: (inside: 1.5cm, outside: 1.5cm, top: 5cm, bottom: 2.5cm),
@@ -159,7 +196,7 @@
   toc_indent: 1.5em,
   cover: true,
   strip_height: 9mm,
-  show_watermark: true,
+  show_watermark: false,
   doc,
 ) = {
   // ---------------------------------------------------------------------------
@@ -254,6 +291,23 @@
   let background-plain = {
     place(bottom + left, strip)
   }
+  // Cover background: optional cover photo (or grey placeholder) in the docx
+  // "tongue" shape, plus the brand strip.
+  let background-cover = {
+    if cover_image != none {
+      place(bottom + left, dx: 0mm, dy: -cover-photo-bottom)[
+        #cover-photo-shape(fill: tiling(
+          image(cover_image, width: cover-photo-width, height: cover-photo-height, fit: "cover"),
+          size: (cover-photo-width, cover-photo-height),
+        ))
+      ]
+    } else if cover_placeholder {
+      place(bottom + left, dx: 0mm, dy: -cover-photo-bottom)[
+        #cover-photo-shape(fill: rgb("#F0F0F0"))
+      ]
+    }
+    place(bottom + left, strip)
+  }
   // ...and by the body (faint watermark plus the strip).
   let background-body = {
     if show_watermark and watermark != none {
@@ -292,7 +346,7 @@
       numbering: none,
       header: running-header,
       footer: none,
-      background: background-plain,
+      background: background-cover,
     )
 
     // Cover text is left-aligned (not justified).
@@ -312,15 +366,15 @@
     text(font: heading-family, size: 16pt, weight: "bold", fill: heading-color)[
       #if title != none [#title] else [Document Title]
     ]
-    v(42pt)
+    v(30pt)
     text(size: 12pt, weight: "bold")[
       Prepared for #text(fill: link-color)[
         #if client != none [#client] else [Client Name]
       ]
     ]
-    v(18pt)
+    v(12pt)
     block[
-      #set par(leading: 0.2em)
+      #set par(leading: 0.6em)
       #text(size: 8pt, fill: ink-color)[
         #if rev_data != none and rev_data.len() > 0 [
           #resolve_month_year(rev_data.last().rev_date)

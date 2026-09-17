@@ -79,10 +79,34 @@ logo:
     agilitus: images/logo-agilitus.png
     watermark: images/brand/agilitus-watermark.svg
     tagline: images/brand/shaping-tomorrow-together.png
+    cover: images/brand/cover-image_min-1800x1950px.png
 ```
 
 Change a value in `_brand.yml` and it flows through to the cover, headings,
 and the blue→green gradient strips on every page.
+
+## Cover photo
+
+The cover reproduces the photo shape from the Word template — a
+**126.5 × 136.6 mm** "tongue" at the lower left (the original docx shape,
+scaled to 80% and grown by 5 mm). It is bottom-aligned on the page and filled
+with the image named `cover` in `_brand.yml` — by default
+`images/brand/cover-image_min-1500x1620px.png`.
+
+To use your own photo, either replace that file or point the document metadata
+at another one:
+
+```yaml
+cover-image: images/my-cover.jpg     # or cover_image
+```
+
+Provide an image of at least **1500 × 1620 px (300 dpi)**; the image is cropped
+(`fit: "cover"`) to fill the shape. To show the grey placeholder shape instead
+of a photo, set:
+
+```yaml
+cover-placeholder: true
+```
 
 ### Fonts
 
