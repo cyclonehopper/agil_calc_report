@@ -327,8 +327,8 @@
     ]
 
     if tagline != none {
-      // Brand tagline, lower-left just above the gradient strip.
-      place(bottom + left, dy: 14mm)[
+      // Brand tagline, lower-right just above the gradient strip.
+      place(bottom + right, dy: 14mm)[
         #image(tagline, width: 33mm)
       ]
     }
