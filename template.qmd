@@ -22,7 +22,13 @@ proj_phase: Detailed Design
 logo_company: "images/logo-agilitus.png"
 logo_client: "images/logo-MIM-glencore.png"
 revisions:
-- rev_no: A
+# - rev_no: A
+#   rev_date: today
+#   rev_desc: IFIR
+#   rev_prep: Josua A
+#   rev_check: F. Hakim
+#   rev_app:
+- rev_no: B
   rev_date: today
   rev_desc: IFIR
   rev_prep: Josua A
