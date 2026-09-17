@@ -288,6 +288,9 @@
       background: background-plain,
     )
 
+    // Cover text is left-aligned (not justified).
+    set par(justify: false)
+
     // Cover text block. Spacing and position mirror the Word template
     // (AGIL-ST-CAL-0003):
     //   after project title ....... 80 twips  ( 4 pt)
