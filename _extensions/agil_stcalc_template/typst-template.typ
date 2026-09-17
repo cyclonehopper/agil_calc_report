@@ -372,17 +372,19 @@
   }
 
   // Document control table with the disclaimer as small print below it.
-  place(bottom, block[
-    #doc-control-table(
-      rev_data: rev_data,
-      ink: ink-color,
-    )
-    #v(4mm)
-    #disclaimer(
-      company: if company != none { company } else { "Agilitus Pty Ltd" },
-      ink: ink-color,
-    )
-  ])
+  // `v(1fr)` pushes them to the bottom of the contents page when there is
+  // room; if the contents overflow onto further pages the table flows on
+  // rather than overlapping the entries (which `place(bottom, ...)` would).
+  v(1fr)
+  doc-control-table(
+    rev_data: rev_data,
+    ink: ink-color,
+  )
+  v(4mm)
+  disclaimer(
+    company: if company != none { company } else { "Agilitus Pty Ltd" },
+    ink: ink-color,
+  )
 
   pagebreak()
 
