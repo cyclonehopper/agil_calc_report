@@ -73,7 +73,7 @@
 #let doc-control-table(
   rev_data: (),
   ink: black,
-  row-height: 9.6mm,
+  row-height: 12mm,
 ) = {
   let border = 0.4pt + ink
   // Vertical cell padding (top + bottom); compensated for below so the
@@ -271,8 +271,8 @@
       align(left)[
         #if client != none [#client]
         #if proj_title != none [#h(0.6em)| #h(0.6em)#proj_title]
-        #if proj_no != none [#h(0.6em)| #h(0.6em)Proj #proj_no]
-        #if calc_no != none [#h(0.6em)| #h(0.6em)Doc #calc_no]
+        #if proj_no != none [#h(0.6em)| #h(0.6em)Project No. #proj_no]
+        #if calc_no != none [#h(0.6em)| #h(0.6em)Document No. #calc_no]
         #if rev_data != none and rev_data.len() > 0 [#h(0.6em)Rev #rev_data.last().rev_no]
       ],
       align(right)[Page #counter(page).display("1")],
