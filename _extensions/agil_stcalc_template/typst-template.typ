@@ -74,11 +74,13 @@
   rev_data: (),
   ink: black,
   row-height: 12mm,
+  header-height: 6mm,
 ) = {
   let border = 0.4pt + ink
   // Vertical cell padding (top + bottom); compensated for below so the
-  // rendered row heights are exactly `row-height` / `row-height / 2`.
+  // rendered row heights are exactly the requested values.
   let vpad = 4pt
+  let hcell = calc.max(header-height - vpad, 0pt)
   let rows = ()
   if rev_data != none {
     let n = rev_data.len()
@@ -103,9 +105,10 @@
     inset: (x: 5pt, y: 2pt),
     align: left + top,
     table.hline(stroke: border),
-    table.cell(colspan: 6)[#text(weight: "bold")[Document Control]],
+    table.cell(colspan: 6)[#block(height: hcell)[#text(weight: "bold")[Document Control]]],
     table.hline(stroke: border),
-    [Revision], [Issue Reason], [Date], [Prepared], [Reviewed], [Approved],
+    table.cell[#block(height: hcell)[Revision]],
+    [Issue Reason], [Date], [Prepared], [Reviewed], [Approved],
     ..rows,
     table.hline(stroke: border),
     table.vline(x: 0, stroke: border),
