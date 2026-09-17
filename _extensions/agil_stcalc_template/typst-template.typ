@@ -76,11 +76,18 @@
   row-height: 9.6mm,
 ) = {
   let border = 0.4pt + ink
+  // Vertical cell padding (top + bottom); compensated for below so the
+  // rendered row heights are exactly `row-height` / `row-height / 2`.
+  let vpad = 4pt
   let rows = ()
   if rev_data != none {
-    for rev in rev_data {
+    let n = rev_data.len()
+    for (i, rev) in rev_data.enumerate() {
+      // The current (latest) revision gets the full row height; older
+      // revisions collapse to half height.
+      let h = if i < n - 1 { row-height / 2 } else { row-height }
       rows.push(table.hline(stroke: border))
-      rows.push(block(height: row-height)[#rev.rev_no])
+      rows.push(block(height: calc.max(h - vpad, 0pt))[#rev.rev_no])
       rows.push(rev.rev_desc)
       rows.push(resolve_date(rev.rev_date))
       rows.push(rev.rev_prep)
@@ -93,7 +100,7 @@
     // Column proportions follow the Word grid (907:2311:1378:1488:1488:1637).
     columns: (1fr, 2.55fr, 1.52fr, 1.64fr, 1.64fr, 1.8fr),
     stroke: none,
-    inset: 5pt,
+    inset: (x: 5pt, y: 2pt),
     align: left + top,
     table.hline(stroke: border),
     table.cell(colspan: 6)[#text(weight: "bold")[Document Control]],
