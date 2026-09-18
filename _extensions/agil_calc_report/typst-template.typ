@@ -1,5 +1,5 @@
 // =============================================================================
-// Agilitus structural calculation template (Quarto + Typst)
+// Agilitus calculation report template (Quarto + Typst)
 //
 // Revised to match the AGIL-ST-CAL-0003 report style:
 //   * branded cover page

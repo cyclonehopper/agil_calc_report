@@ -1,4 +1,4 @@
-# Agilitus Structural Calculation Template
+# Agilitus Calculation Report
 
 A **Quarto + Typst** template for Agilitus structural calculations. The layout
 mirrors the Word template `AGIL-ST-CAL-0003_1`:
@@ -22,7 +22,7 @@ header:
 
 ```yaml
 format:
-  agil_stcalc_template-typst: default
+  agil_calc_report-typst: default
 toc: true
 toc-title: Contents
 company: Agilitus
@@ -128,6 +128,6 @@ example `Lato`).
 |------|---------|
 | `template.qmd` | Example calculation document |
 | `_brand.yml` | Brand colours, typography and logos |
-| `_extensions/agil_stcalc_template/typst-template.typ` | Cover, contents and body layout |
-| `_extensions/agil_stcalc_template/typst-show.typ` | Maps metadata + brand into the template |
+| `_extensions/agil_calc_report/typst-template.typ` | Cover, contents and body layout |
+| `_extensions/agil_calc_report/typst-show.typ` | Maps metadata + brand into the template |
 | `images/brand/` | Brand assets (watermark, tagline) |

@@ -8,7 +8,7 @@ julia:
 execute:
   cache: true
 format:
-  agil_stcalc_template-typst: default
+  agil_calc_report-typst: default
 toc: true
 toc-title: Contents
 toc-depth: 3

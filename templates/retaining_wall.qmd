@@ -7,7 +7,7 @@ julia:
 mainfont: Lato
 fig-align: center
 format:
-  agil_stcalc_template-typst: default
+  agil_calc_report-typst: default
 company: Agilitus
 client: Glencore
 proj_no: 26016
