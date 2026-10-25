@@ -17,6 +17,8 @@ You are an expert structural engineer and writer, and Julia developer. This proj
 - Use ` #| ` for block-level options (e.g., `#| label: fig-1`, `#| echo: false`).
 - Default to  `Plots.jl` libraries for visualizations unless otherwise specified.
 - Ensure all Julia packages are referenced in the local `Project.toml`.
+- **Quantity labels/text: don't decompose.** Interpolate the rounded quantity and let `Unitful` print the unit, e.g. `"N* = $(N |> f2)"` → `"N* = 50.25 kN"`. Use `f0`–`f3`/`fround` from `MyUnits`; never `string(ustrip(...))`, and never re-attach units by hand (`* u"m"`, `* 1°`) just for display. `round(q; digits=n)` on a `Quantity` is **not** a substitute — it errors, or (for dimensionless units like `°`) rounds the SI-base value and drops the unit.
+- **Strip units only when a quantity is raised to an irrational power** (`x^0.5`, `x^(1/3)`, `sqrt(x)` of a non-square quantity): convert to consistent units (`upreferred`), `ustrip`, compute, then re-attach the resulting unit. Everywhere else keep the `Unitful` quantity.
 
 ## 🎨 Typesetting Rules (Typst)
 - When writing raw Typst blocks, use: ` ```{=typst} ... ``` `
